@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Drawing.Text;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Automation.Provider;
 using System.Windows.Media;
 
@@ -17,6 +20,10 @@ public class MainViewModel : INotifyPropertyChanged
     {
         FontsList = GetFontNames();
         PropertyChanged += OnSettingsChanged;
+
+        // Init from settings
+        FontSize = (double)SettingsManager.Instance.GetPropertyValue(nameof(FontSize));
+        TextFont = (string)SettingsManager.Instance.GetPropertyValue(nameof(TextFont));
     }
 
     #region Static Lists
@@ -53,14 +60,31 @@ public class MainViewModel : INotifyPropertyChanged
     #endregion FontSizes
     #endregion Static Lists
 
-    #region FontsList
+    #region Property List
     private Brush? _background;
     public Brush? Background
     {
         get => _background;
         set => SetProperty(ref _background, value);
     }
-    #endregion FontsList
+
+    private string _textFont;
+    public string TextFont
+    {
+        get => _textFont;
+        set => SetProperty(ref _textFont, value);
+    }
+
+    private double _fontSize;
+    public double FontSize
+    {
+        get => _fontSize;
+        set => SetProperty(ref _fontSize, value);
+    }
+
+    public string UserConfigPath => ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath;
+
+    #endregion  Property List
 
     #region INotifyPropertyChanged implementation
     public event PropertyChangedEventHandler? PropertyChanged;
@@ -68,8 +92,15 @@ public class MainViewModel : INotifyPropertyChanged
 
     private void OnSettingsChanged(object? sender, PropertyChangedEventArgs e)
     {
-        //SettingsChanged?.Invoke(this, e);
-        Console.WriteLine(e.PropertyName);
+        if (sender == null) return;
+
+        Type type = sender.GetType();
+        PropertyInfo propertyInfo = type.GetProperty(e.PropertyName);
+
+        if (propertyInfo == null) return;
+
+        var value = propertyInfo.GetValue(sender, null);
+        SettingsManager.Instance.SetPropertyValue(e.PropertyName, value);
     }
 
     protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -84,6 +115,26 @@ public class MainViewModel : INotifyPropertyChanged
         member = value;
         OnPropertyChanged(propertyName ?? throw new ArgumentNullException(nameof(propertyName)));
         return true;
+    }
+
+    internal void Save()
+    {
+        SettingsManager.Instance.Save(nameof(MainViewModel.FontSize));
+        SettingsManager.Instance.Save(nameof(MainViewModel.TextFont));
+        SettingsManager.Instance.SetPropertyValue(nameof(MainViewModel.FontSize), FontSize);
+        SettingsManager.Instance.SetPropertyValue(nameof(MainViewModel.TextFont), TextFont);
+        _ = MessageBox.Show(messageBoxText: "Settings Saved!");
+
+    }
+
+    internal void Restore()
+    {
+        SettingsManager.Instance.Reset(nameof(MainViewModel.FontSize));
+        SettingsManager.Instance.Reset(nameof(MainViewModel.TextFont));
+
+        FontSize = (double)SettingsManager.Instance.GetPropertyValue(nameof(FontSize));
+        TextFont = (string)SettingsManager.Instance.GetPropertyValue(nameof(TextFont));
+        _ = MessageBox.Show(messageBoxText: "Settings Restored!");
     }
     #endregion
 }

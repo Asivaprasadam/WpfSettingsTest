@@ -67,7 +67,7 @@
     <DockPanel>
         <StackPanel DockPanel.Dock="Left" Margin="0">
             <TextBlock x:Name="textBlock" HorizontalAlignment="Left" FontFamily="{Binding ElementName=comboBoxFont, Path=SelectedValue}" FontSize="{Binding ElementName=comboBoxSize, Path=SelectedValue}" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Margin="5"/>
-            <ComboBox x:Name="comboBoxFont" HorizontalAlignment="Left" ItemsSource="{Binding FontsList}" SelectedIndex="0" DockPanel.Dock="Top" VerticalAlignment="Top" Width="115" Height="30" Margin="5">
+            <ComboBox x:Name="comboBoxFont" HorizontalAlignment="Left" ItemsSource="{Binding FontsList}" DockPanel.Dock="Top" VerticalAlignment="Top" Width="115" Height="30" Margin="5" SelectedIndex="0" SelectedValue="{Binding TextFont, Mode=TwoWay}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0 2 0 0">
@@ -76,7 +76,7 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <ComboBox x:Name="comboBoxSize" HorizontalAlignment="Stretch" SelectedIndex="0" ItemsSource="{Binding FontSizes}" DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5">
+            <ComboBox x:Name="comboBoxSize" HorizontalAlignment="Stretch" ItemsSource="{Binding FontSizes}" DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5" SelectedIndex="0" SelectedValue="{Binding FontSize, Mode=TwoWay}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0">
@@ -99,6 +99,11 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
         </StackPanel>
-
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" VerticalAlignment="Bottom" HorizontalAlignment="Right" MinHeight="40" Margin=" 0 0 -75 25">
+            <Button x:Name="resetBtn" Content="_Reset" Margin="5" MinWidth="75" Click="ResetBtn_Click"/>
+            <Button x:Name="cancelBtn" Content="_Cancel" Margin="5" MinWidth="75" Click="CancelBtn_Click"/>
+            <Button x:Name="saveBtn" Content="_Save" Margin="5" MinWidth="75" Click="SaveBtn_Click"/>
+        </StackPanel>
+        <TextBlock Text="{Binding UserConfigPath}" DockPanel.Dock="Left" VerticalAlignment="Bottom" HorizontalAlignment="Left" TextWrapping="WrapWithOverflow"/>
     </DockPanel>
 </Window>

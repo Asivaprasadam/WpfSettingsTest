@@ -19,7 +19,7 @@ public class SettingsManager
         _settings = settings;
     }
 
-    public void Load()
+    public void Reload()
     {
         _settings.Reload();
 
@@ -67,28 +67,24 @@ public class SettingsManager
     public void Reset(string propertyName = null)
     {
         if (propertyName != null)
-        {
-            var property = _settings.Properties[propertyName];
-            var defaultValueAttribute = (DefaultValueAttribute)property.Attributes[typeof(DefaultValueAttribute)];
-            var defaultValue = defaultValueAttribute?.Value ?? property.PropertyType.GetDefaultValue();
-
-            _settings[property.Name] = defaultValue;
-            Properties.Settings.Default[propertyName] = defaultValue;
-        }
+            ResetProperty(propertyName);
         else
-        {
-            Properties.Settings.Default.Reset();
-
             foreach (SettingsProperty property in _settings.Properties)
             {
                 if (property.IsReadOnly)
                     continue;
-
-                var defaultValueAttribute = (DefaultValueAttribute)property.Attributes[typeof(DefaultValueAttribute)];
-                var defaultValue = defaultValueAttribute?.Value ?? property.PropertyType.GetDefaultValue();
-
-                _settings[property.Name] = defaultValue;
+                ResetProperty(property.Name);
             }
+    }
+
+    private void ResetProperty(string propertyName)
+    {
+        var property = _settings.Properties[propertyName];
+        var targetType = Type.GetType(property?.PropertyType?.FullName!);
+        if (targetType != null)
+        {
+            var defaultValue = Convert.ChangeType(property?.DefaultValue, targetType);
+            _settings[property?.Name] = defaultValue;
         }
     }
 
@@ -105,7 +101,7 @@ public class SettingsManager
             propertyInfo.SetValue(_settings, Convert.ChangeType(value, propertyInfo.PropertyType), null);
     }
 
-    public List<string> GetProperties()
+    public List<string> GetProperties(bool hideReadOnly = true)
     {
         List<string> properties = new List<string>();
         foreach (SettingsProperty property in _settings.Properties)

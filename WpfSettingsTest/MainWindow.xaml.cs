@@ -19,13 +19,19 @@ public partial class MainWindow : Window
         this.DataContext = MainViewModel.Instance;
 
         var settingsManager = SettingsManager.Instance;
-        settingsManager.Load();
+        settingsManager.Reload();
 
-        var fontSize = Properties.Settings.Default.TextFontSize;
-        Properties.Settings.Default.TextFontSize = 12.0;
-        settingsManager.SetPropertyValue("TextFontSize", 18);
+        //var fontSize = Properties.Settings.Default.FontSize;
+        //Properties.Settings.Default.FontSize = 12.0;
+        //settingsManager.SetPropertyValue(nameof(MainViewModel.FontSize), 18);
 
-        settingsManager.Save("TextFontSize");
+        //settingsManager.Save(nameof(MainViewModel.FontSize));
 
     }
+
+    private void ResetBtn_Click(object sender, RoutedEventArgs e) => MainViewModel.Instance.Restore();
+
+    private void CancelBtn_Click(object sender, RoutedEventArgs e) { }
+
+    private void SaveBtn_Click(object sender, RoutedEventArgs e) => MainViewModel.Instance.Save();
 }

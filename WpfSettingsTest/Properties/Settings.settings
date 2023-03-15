@@ -2,11 +2,11 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="WpfSettingsTest.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="TextFont" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="TextFontSize" Type="System.Double" Scope="User">
+    <Setting Name="FontSize" Type="System.Double" Scope="User">
       <Value Profile="(Default)">12</Value>
+    </Setting>
+    <Setting Name="TextFont" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Algerian</Value>
     </Setting>
   </Settings>
 </SettingsFile>
