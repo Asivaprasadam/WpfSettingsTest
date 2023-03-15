@@ -46,5 +46,17 @@ namespace WpfSettingsTest.Properties {
                 this["TextFont"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool RequiredUpgrade {
+            get {
+                return ((bool)(this["RequiredUpgrade"]));
+            }
+            set {
+                this["RequiredUpgrade"] = value;
+            }
+        }
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Configuration;
 using System.Reflection;
+using WpfSettingsTest.Properties;
 
 namespace WpfSettingsTest;
 
@@ -17,6 +18,13 @@ public class SettingsManager
     private SettingsManager(ApplicationSettingsBase settings)
     {
         _settings = settings;
+
+        if (Settings.Default.RequiredUpgrade)
+        {
+            Settings.Default.Upgrade();
+            Settings.Default.RequiredUpgrade = false;
+            Settings.Default.Save();
+        }
     }
 
     public void Reload()
