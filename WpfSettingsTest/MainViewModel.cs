@@ -43,7 +43,7 @@ public class MainViewModel : INotifyPropertyChanged
     private static HashSet<double> GetFontSizes()
     {
         HashSet<double> fontSizes = new HashSet<double>();
-        for (int i = 0; i < 96; i++)
+        for (int i = 0; i <= 96; i++)
         {
             if ((i % 2 == 0 && i % 3 == 0) || i % 4 == 0)
                 _ = fontSizes.Add(i);

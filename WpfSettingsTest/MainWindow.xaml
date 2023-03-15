@@ -63,19 +63,6 @@
             <SolidColorBrush Color="#FF1DE9B6" />
         </x:Array>
 
-        <x:Array x:Key="FontSizes" Type="sys:Double">
-            <sys:Double>8</sys:Double>
-            <sys:Double>10</sys:Double>
-            <sys:Double>12</sys:Double>
-            <sys:Double>14</sys:Double>
-            <sys:Double>16</sys:Double>
-            <sys:Double>18</sys:Double>
-            <sys:Double>20</sys:Double>
-            <sys:Double>22</sys:Double>
-            <sys:Double>24</sys:Double>
-            <sys:Double>48</sys:Double>
-        </x:Array>
-
     </Window.Resources>
     <DockPanel>
         <StackPanel DockPanel.Dock="Left" Margin="0">
@@ -89,11 +76,11 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <ComboBox x:Name="comboBoxSize" HorizontalAlignment="Left" SelectedIndex="0" ItemsSource="{StaticResource FontSizes}" DockPanel.Dock="Top" VerticalAlignment="Top" Width="115" Height="85" Margin="5">
+            <ComboBox x:Name="comboBoxSize" HorizontalAlignment="Stretch" SelectedIndex="0" ItemsSource="{Binding FontSizes}" DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0 2 0 0">
-                            <Label Content="{Binding}" FontSize="{Binding}" Height="75" Width="75" Margin="0 0 5 0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="1"/>
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0">
+                            <Label Content="{Binding}" FontSize="{Binding}" Height="125" Width="125" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Padding="0 0 0 10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="1"/>
                         </StackPanel>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
