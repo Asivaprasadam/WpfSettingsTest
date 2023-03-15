@@ -77,12 +77,8 @@ public class SettingsManager
         if (propertyName != null)
             ResetProperty(propertyName);
         else
-            foreach (SettingsProperty property in _settings.Properties)
-            {
-                if (property.IsReadOnly)
-                    continue;
+            foreach (SettingsProperty property in GetProperties())
                 ResetProperty(property.Name);
-            }
     }
 
     private void ResetProperty(string propertyName)
@@ -109,11 +105,15 @@ public class SettingsManager
             propertyInfo.SetValue(_settings, Convert.ChangeType(value, propertyInfo.PropertyType), null);
     }
 
-    public List<string> GetProperties(bool hideReadOnly = true)
+    public List<SettingsProperty> GetProperties(bool hideReadOnly = true)
     {
-        List<string> properties = new List<string>();
+        List<SettingsProperty> properties = new List<SettingsProperty>();
         foreach (SettingsProperty property in _settings.Properties)
-            properties.Add(property.Name);
+        {
+            if (property.IsReadOnly && hideReadOnly)
+                continue;
+            properties.Add(property);
+        }
         return properties;
     }
 }
