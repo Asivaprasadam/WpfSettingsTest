@@ -37,69 +37,7 @@ public class MainViewModel : INotifyPropertyChanged
     }
     #endregion FontsList
 
-    #region BrushList
-    public static HashSet<Brush> Brushes { get; set; } = GetBrushes();
-
-    private static HashSet<Brush> GetBrushes()
-    {
-        HashSet<Brush> brushes = new HashSet<Brush>();
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF00B0FF")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFF5252")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFF4081")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFC51162")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF7C4DFF")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFF6D00")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFF9100")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFAB00")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF69F0AE")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF18FFFF")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF1DE9B6")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFEA00")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFEA80FC")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFE040FB")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFD500F9")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFAA00FF")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF00E676")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF64FFDA")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF1DE9B6")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF76FF03")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFD600")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFF6D00")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFF1744")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFDD2C00")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2196F3")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF3F51B5")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF9C27B0")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFE91E63")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFF3D00")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFF5722")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFF8F00")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFE65100")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF4CAF50")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF00BCD4")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF607D8B")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF9E9E9E")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF6D4C41")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFC107")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF795548")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF8BC34A")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFF9800")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF9C27B0")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFD32F2F")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFC2185B")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF7B1FA2")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF673AB7")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF4A148C")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFE040FB")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFD500F9")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFAA00FF")));
-        brushes.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF1DE9B6")));
-
-        return brushes;
-    }
-    #endregion BrushList
-
-    #region BrushList
+    #region FontSizes
     public static HashSet<double> FontSizes { get; set; } = GetFontSizes();
 
     private static HashSet<double> GetFontSizes()
@@ -112,7 +50,7 @@ public class MainViewModel : INotifyPropertyChanged
         }
         return fontSizes;
     }
-    #endregion BrushList
+    #endregion FontSizes
     #endregion Static Lists
 
     #region FontsList
