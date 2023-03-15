@@ -12,8 +12,12 @@ namespace WpfSettingsTest;
 public class SettingsManager
 {
     private readonly ApplicationSettingsBase _settings;
+    public static SettingsManager Instance { get; private set; } = new SettingsManager(Properties.Settings.Default);
 
-    public SettingsManager(ApplicationSettingsBase settings) => _settings = settings;
+    private SettingsManager(ApplicationSettingsBase settings)
+    {
+        _settings = settings;
+    }
 
     public void Load()
     {

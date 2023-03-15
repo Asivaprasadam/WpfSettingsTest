@@ -18,7 +18,7 @@ public partial class MainWindow : Window
         InitializeComponent();
         this.DataContext = MainViewModel.Instance;
 
-        var settingsManager = new SettingsManager(Properties.Settings.Default);
+        var settingsManager = SettingsManager.Instance;
         settingsManager.Load();
 
         var fontSize = Properties.Settings.Default.TextFontSize;
