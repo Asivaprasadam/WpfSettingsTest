@@ -23,6 +23,7 @@ public partial class MainWindow : Window
 
         var fontSize = Properties.Settings.Default.TextFontSize;
         Properties.Settings.Default.TextFontSize = 12.0;
+        settingsManager.SetPropertyValue("TextFontSize", 18);
 
         settingsManager.Save("TextFontSize");
 

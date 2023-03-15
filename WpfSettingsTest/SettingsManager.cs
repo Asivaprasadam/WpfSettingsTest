@@ -13,10 +13,7 @@ public class SettingsManager
 {
     private readonly ApplicationSettingsBase _settings;
 
-    public SettingsManager(ApplicationSettingsBase settings)
-    {
-        _settings = settings;
-    }
+    public SettingsManager(ApplicationSettingsBase settings) => _settings = settings;
 
     public void Load()
     {
@@ -25,22 +22,16 @@ public class SettingsManager
         foreach (SettingsProperty property in _settings.Properties)
         {
             if (property.IsReadOnly)
-            {
                 continue;
-            }
 
             var value = _settings[property.Name];
 
             if (value == null)
-            {
                 continue;
-            }
 
             var propertyInfo = _settings.GetType().GetProperty(property.Name);
             if (propertyInfo != null && propertyInfo.CanWrite)
-            {
                 propertyInfo.SetValue(_settings, value, null);
-            }
         }
     }
 
@@ -57,16 +48,12 @@ public class SettingsManager
             foreach (SettingsProperty property in _settings.Properties)
             {
                 if (property.IsReadOnly)
-                {
                     continue;
-                }
 
                 var value = _settings[property.Name];
 
                 if (value != null)
-                {
                     Properties.Settings.Default[property.Name] = value;
-                }
             }
         }
 
@@ -91,9 +78,7 @@ public class SettingsManager
             foreach (SettingsProperty property in _settings.Properties)
             {
                 if (property.IsReadOnly)
-                {
                     continue;
-                }
 
                 var defaultValueAttribute = (DefaultValueAttribute)property.Attributes[typeof(DefaultValueAttribute)];
                 var defaultValue = defaultValueAttribute?.Value ?? property.PropertyType.GetDefaultValue();
@@ -103,24 +88,29 @@ public class SettingsManager
         }
     }
 
-    public T GetSetting<T>(string propertyName)
+    public object GetPropertyValue(string propertyName)
     {
         var property = _settings.Properties[propertyName];
-        return (T)_settings[property.Name];
+        return _settings[property.Name];
     }
 
-    public void SetSetting<T>(string propertyName, T value)
+    public void SetPropertyValue(string propertyName, object value)
     {
-        var property = _settings.Properties[propertyName];
-        _settings[property.Name] = value;
+        var propertyInfo = _settings.GetType().GetProperty(propertyName);
+        if (propertyInfo != null && propertyInfo.CanWrite)
+            propertyInfo.SetValue(_settings, Convert.ChangeType(value, propertyInfo.PropertyType), null);
     }
 
+    public List<string> GetProperties()
+    {
+        List<string> properties = new List<string>();
+        foreach (SettingsProperty property in _settings.Properties)
+            properties.Add(property.Name);
+        return properties;
+    }
 }
 
 public static class TypeExtensions
 {
-    public static object GetDefaultValue(this Type type)
-    {
-        return type.IsValueType ? Activator.CreateInstance(type) : null;
-    }
+    public static object? GetDefaultValue(this Type type) => type.IsValueType ? Activator.CreateInstance(type) : null;
 }
