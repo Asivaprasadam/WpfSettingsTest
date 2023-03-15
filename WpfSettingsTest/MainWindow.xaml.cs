@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Configuration;
 using System.Drawing.Text;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
+
+using WpfSettingsTest.Properties;
 
 namespace WpfSettingsTest;
 /// <summary>
@@ -10,25 +13,18 @@ namespace WpfSettingsTest;
 /// </summary>
 public partial class MainWindow : Window
 {
-    public static List<string> FontsList { get; set; } = GetFontNames();
-
     public MainWindow()
     {
         InitializeComponent();
-        this.DataContext = this;
-    }
+        this.DataContext = MainViewModel.Instance;
 
-    public static List<string> GetFontNames()
-    {
-        List<string> fontNames = new List<string>();
-        using (InstalledFontCollection installedFonts = new InstalledFontCollection())
-        {
-            foreach (var fontFamily in installedFonts.Families)
-            {
-                fontNames.Add(fontFamily.Name);
-            }
-        }
-        return fontNames;
+        var settingsManager = new SettingsManager(Properties.Settings.Default);
+        settingsManager.Load();
+
+        var fontSize = Properties.Settings.Default.TextFontSize;
+        Properties.Settings.Default.TextFontSize = 12.0;
+
+        settingsManager.Save("TextFontSize");
+
     }
 }
-

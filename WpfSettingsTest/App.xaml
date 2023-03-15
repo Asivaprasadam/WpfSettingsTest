@@ -4,6 +4,12 @@
              xmlns:local="clr-namespace:WpfSettingsTest"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+
+            <DataTemplate DataType="{x:Type local:MainViewModel}">
+                <local:MainWindow/>
+            </DataTemplate>
+        </ResourceDictionary>
+
     </Application.Resources>
 </Application>

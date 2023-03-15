@@ -5,7 +5,7 @@
         xmlns:local="clr-namespace:WpfSettingsTest"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        d:DataContext="{d:DesignInstance Type=local:MainWindow}"
+        d:DataContext="{d:DesignInstance Type=local:MainViewModel}"
         mc:Ignorable="d"
         Title="WPF Settings Test" Height="500" Width="800">
     <Window.Resources>
@@ -75,12 +75,12 @@
             <sys:Double>24</sys:Double>
             <sys:Double>48</sys:Double>
         </x:Array>
-        
+
     </Window.Resources>
     <DockPanel>
         <StackPanel DockPanel.Dock="Left" Margin="0">
             <TextBlock x:Name="textBlock" HorizontalAlignment="Left" FontFamily="{Binding ElementName=comboBoxFont, Path=SelectedValue}" FontSize="{Binding ElementName=comboBoxSize, Path=SelectedValue}" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Margin="5"/>
-            <ComboBox x:Name="comboBoxFont" HorizontalAlignment="Left" ItemsSource="{x:Static local:MainWindow.FontsList}" DockPanel.Dock="Top" VerticalAlignment="Top" Width="115" Height="30" Margin="5">
+            <ComboBox x:Name="comboBoxFont" HorizontalAlignment="Left" ItemsSource="{Binding FontsList}" SelectedIndex="0" DockPanel.Dock="Top" VerticalAlignment="Top" Width="115" Height="30" Margin="5">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0 2 0 0">
@@ -89,7 +89,7 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <ComboBox x:Name="comboBoxSize" HorizontalAlignment="Left" SelectedIndex="1" ItemsSource="{StaticResource FontSizes}" DockPanel.Dock="Top" VerticalAlignment="Top" Width="115" Height="85" Margin="5">
+            <ComboBox x:Name="comboBoxSize" HorizontalAlignment="Left" SelectedIndex="0" ItemsSource="{StaticResource FontSizes}" DockPanel.Dock="Top" VerticalAlignment="Top" Width="115" Height="85" Margin="5">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0 2 0 0">
@@ -101,7 +101,7 @@
         </StackPanel>
         <StackPanel DockPanel.Dock="Right" Margin="0">
             <Rectangle HorizontalAlignment="Stretch" Height="20" DockPanel.Dock="Right" VerticalAlignment="Top" MinWidth="120" Fill="{Binding ElementName=comboBoxColor, Path=SelectedValue, NotifyOnSourceUpdated=True}" Margin="5"/>
-            <ComboBox x:Name="comboBoxColor" ItemsSource="{StaticResource BrushList}" SelectedIndex="0" HorizontalAlignment="Stretch" VerticalAlignment="Top" MinWidth="120" Height="30" Margin="5">
+            <ComboBox x:Name="comboBoxColor" ItemsSource="{StaticResource BrushList}" SelectedValue="{Binding Background, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" VerticalAlignment="Top" MinWidth="120" Height="30" Margin="5">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 2 0 0">
